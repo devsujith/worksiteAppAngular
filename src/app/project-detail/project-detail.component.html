@@ -1,0 +1,306 @@
+
+<app-sidebar></app-sidebar>
+<div class="main">
+        <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item" aria-current="page"><a routerLink="/projects">Projects</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">{{project.title}}</li>
+                </ol>
+              </nav>
+
+      <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                   
+            <h1 class="display-5">{{project.title | uppercase}}</h1>
+            <p class="lead">Description : {{project.desc}}</p>
+            <hr class="my-2">
+            <strong><p>Location : {{project.location}}</p></strong>
+            <strong><p>Total Payments : {{totalPayments}} | Total Expense : {{totalExpense}} </p></strong>
+            
+           
+                    <button type="button" class="btn btn-danger mr-2 float-right" (click)="showDeleteProject(deleteModal)" >Delete</button>
+                    <button type="button" class="btn btn-light mr-2  float-right" (click)="showEditProject(editModal)">Edit</button>
+
+                    <ng-template #editModal let-modal>
+                            <div class="modal-header">
+                              <h4 class="modal-title" id="modal-basic-title">Edit project</h4>
+                              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <!-- Modal Edit body -->
+                            <div class="modal-body">
+                                    <form (ngSubmit)="editProject(projectData)" #projectData="ngForm">
+                                            <div class="form-group row">
+                                              <div class="col-sm-3 col-form-label">Title</div>
+                                              <div class="col-sm-9">
+                                                <input type="text"  required class="form-control" placeholder="Project Title" name="title" [(ngModel)]="project.title">
+                                              </div>
+                                            </div>
+                                            <div class="form-group row">
+                                              <label class="col-sm-3 col-form-label">Description</label>
+                                              <div class="col-sm-9">
+                                                <input type="text" value="{{project.desc}}" required class="form-control" placeholder="Project Description" name="desc" [(ngModel)]="project.desc">
+                                              </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Location</label>
+                                                    <div class="col-sm-9">
+                                                      <input type="text" value="{{project.location}}" required class="form-control" placeholder="Project Location" name="location" [(ngModel)]="project.location">
+                                                    </div>
+                                                  </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-3"></div>
+                                                <div class="col-sm-9">
+                                                    <button type="submit" class="btn btn-primary btn-block" >Update</button>
+                                                </div>
+                                            </div>
+                                          </form>
+                            </div>
+                           
+                        </ng-template>
+
+                        <ng-template #deleteModal let-modal>
+                                <div class="modal-header">
+                                  <h4 class="modal-title" id="modal-basic-title">Delete project</h4>
+                                </div>
+                                <!-- Modal Edit body -->
+                                <div class="modal-body">
+                                     <p>Are you sure you want to delete the project :  {{project.title | uppercase}}?</p>  
+                                </div>
+
+                                <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" (click)="deleteProject()">Delete</button>
+                                        <button type="button" class="btn btn-light" (click)="modal.dismiss()">Cancel</button>
+                                      </div>
+                               
+                            </ng-template>
+
+                   
+            </div>
+          </div>
+
+       
+        
+          
+        
+            <div class="card" >
+                    <div class="card-header">
+                        
+                      <h4><strong>TASKS</strong>
+                      
+                      <button type="button" class="btn btn-dark float-right" (click)="showAddTask(addTaskModal)" >Add Task</button>
+                    </h4>
+              
+                    <ng-template #addTaskModal let-modal>
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="modal-basic-title">Add Task</h4>
+                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <!-- Modal body -->
+                      <div class="modal-body">
+                              <form (ngSubmit)="createTask(data)" #data="ngForm">
+                                      <div class="form-group row">
+                                        <div class="col-sm-3 col-form-label">Task Name</div>
+                                        <div class="col-sm-9">
+                                          <input type="text" required class="form-control" placeholder="Task Name" name="taskName" ngModel>
+                                        </div>
+                                      </div>
+                                      <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Start Date</label>
+                                        <div class="col-sm-9">
+                                          <input type="date" required class="form-control" placeholder="Start Date" name="startDate" ngModel>
+                                        </div>
+                                      </div>
+                                      <div class="form-group row">
+                                              <label class="col-sm-3 col-form-label">End Date</label>
+                                              <div class="col-sm-9">
+                                                <input type="date" required class="form-control" placeholder="End Date" name="endDate" ngModel>
+                                              </div>
+                                            </div>
+                                            <div class="form-group row">
+                                              <label class="col-sm-3 col-form-label">Estimated Cost</label>
+                                              <div class="col-sm-9">
+                                                <input type="number" required class="form-control" placeholder="Estimated Cost" name="estiamtedCost" ngModel>
+                                              </div>
+                                            </div>
+                                      <div class="form-group row">
+                                          <div class="col-sm-3"></div>
+                                          <div class="col-sm-9">
+                                              <button type="submit" class="btn btn-primary btn-block" >Submit</button>
+                                          </div>
+                                      </div>
+                                    </form>
+                      </div>
+                     
+                  </ng-template>
+                     
+                                
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                   
+                                    <button type="button"  (click)="showTaskDetail(data._id)" class="list-group-item list-group-item-action" *ngFor="let data of project.tasks" >
+                                        <a > <strong>{{data.taskName}}</strong></a>
+                                    </button>
+        
+            
+                            </ul>
+                        </div> 
+
+
+                        <br>
+
+
+                        <div class="card" >
+                                <div class="card-header">
+                                    
+                                  <h4><strong>PAYMENTS</strong>
+                                  
+                                  <button type="button" class="btn btn-dark float-right" (click)="showAddPayment(addPaymentModal)" >Add Payment</button>
+                                </h4>
+                          
+                                <ng-template #addPaymentModal let-modal>
+                                  <div class="modal-header">
+                                    <h4 class="modal-title" id="modal-basic-title">Add Payment</h4>
+                                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <!-- Modal body -->
+                                  <div class="modal-body">
+                                          <form (ngSubmit)="createPayment(data)" #data="ngForm">
+                                                  <div class="form-group row">
+                                                    <div class="col-sm-3 col-form-label">Paymnet Recieved For</div>
+                                                    <div class="col-sm-9">
+                                                      <input type="text" required class="form-control" placeholder="Payment recieved for" name="title" ngModel>
+                                                    </div>
+                                                  </div>
+                                                  <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Date</label>
+                                                    <div class="col-sm-9">
+                                                      <input type="date" required class="form-control" placeholder="Date" name="date" ngModel>
+                                                    </div>
+                                                  </div>
+                                                  <div class="form-group row">
+                                                          <label class="col-sm-3 col-form-label">Amount</label>
+                                                          <div class="col-sm-9">
+                                                            <input type="number" required class="form-control" placeholder="Amount" name="amount" ngModel>
+                                                          </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                          <label class="col-sm-3 col-form-label">Payment Mode</label>
+                                                          <div class="col-sm-9">
+                                                            <input type="text" required class="form-control" placeholder="Mode" name="mode" ngModel>
+                                                          </div>
+                                                        </div>
+                                                  <div class="form-group row">
+                                                      <div class="col-sm-3"></div>
+                                                      <div class="col-sm-9">
+                                                          <button type="submit" class="btn btn-primary btn-block" >Submit</button>
+                                                      </div>
+                                                  </div>
+                                                </form>
+                                  </div>
+                                 
+                              </ng-template>
+                                 
+                                            
+                                        </div>
+
+                            <div *ngIf="project.payments.length > 0">
+                              
+                            
+                            
+
+                                        <table class="table">
+                                          <thead class="thead-dark">
+                                            <tr>
+                                              <th scope="col">Date</th>
+                                              <th scope="col">Recived For</th>
+                                              <th scope="col">Mode</th>
+                                              <th scope="col">Amount</th>
+                                              <th scope="col"></th>
+                                              
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <tr *ngFor="let data of project.payments">
+                                              <th scope="row">{{data.date}}</th>
+                                              <td>{{data.title}}</td>
+                                              <td>{{data.mode}}</td>
+                                              <td>{{data.amount}}</td>
+                                              <td><button type="button" class="btn btn-light  mr-2 float-right" (click)="showEditPayment(editPaymentModal,data)" >Edit</button>
+                                                <button type="button" class="btn btn-danger mr-2 float-right" (click)="showDeletePayment(deletePaymentModal,data)" >Delete</button></td>
+                                              
+                                                <ng-template #editPaymentModal let-modal>
+                                                  <div class="modal-header">
+                                                    <h4 class="modal-title" id="modal-basic-title">Edit Payment</h4>
+                                                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                                      <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                  </div>
+                                                  <!-- Modal Edit body -->
+                                                  <div class="modal-body">
+                                                    <form (ngSubmit)="updatePayment(data)" #data="ngForm">
+                                                            <div class="form-group row">
+                                                              <div class="col-sm-3 col-form-label">Paymnet Recieved For</div>
+                                                              <div class="col-sm-9">
+                                                                <input type="text" required class="form-control" placeholder="Payment recieved for" name="title" [(ngModel)]="selectedPayment.title">
+                                                              </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                              <label class="col-sm-3 col-form-label">Date</label>
+                                                              <div class="col-sm-9">
+                                                                <input type="date" required class="form-control" placeholder="Date" name="date" [(ngModel)]="selectedPayment.date">
+                                                              </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                    <label class="col-sm-3 col-form-label">Amount</label>
+                                                                    <div class="col-sm-9">
+                                                                      <input type="number" required class="form-control" placeholder="Amount" name="amount" [(ngModel)]="selectedPayment.amount">
+                                                                    </div>
+                                                                  </div>
+                                                                  <div class="form-group row">
+                                                                    <label class="col-sm-3 col-form-label">Payment Mode</label>
+                                                                    <div class="col-sm-9">
+                                                                      <input type="text" required class="form-control" placeholder="Mode" name="mode" [(ngModel)]="selectedPayment.mode">
+                                                                    </div>
+                                                                  </div>
+                                                            <div class="form-group row">
+                                                                <div class="col-sm-3"></div>
+                                                                <div class="col-sm-9">
+                                                                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                                                </div>
+                                                            </div>
+                                                          </form>
+                                            </div>
+                                                 
+                                              </ng-template>
+                      
+                                              <ng-template #deletePaymentModal let-modal>
+                                                      <div class="modal-header">
+                                                        <h4 class="modal-title" id="modal-basic-title">Delete project</h4>
+                                                      </div>
+                                                      <!-- Modal Edit body -->
+                                                      <div class="modal-body">
+                                                           <p>Are you sure you want to delete the payment :  {{selectedPayment.title | uppercase}}?</p>  
+                                                      </div>
+                      
+                                                      <div class="modal-footer">
+                                                              <button type="button" class="btn btn-danger" (click)="deletePayment()">Delete</button>
+                                                              <button type="button" class="btn btn-light" (click)="modal.dismiss()">Cancel</button>
+                                                            </div>
+                                                     
+                                                  </ng-template>
+
+                                            </tr>
+                                       
+                                          </tbody>
+                                        </table>
+
+                                      </div>
+                                    </div> 
+                                    <br><br>
+</div>

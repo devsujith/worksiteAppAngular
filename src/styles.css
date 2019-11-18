@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+.main {
+    padding-top: 20px; 
+    margin-left: 200px; /* Same as the width of the sidenav */
+  }
+
+  @media screen and (max-width: 700px) {
+  
+    .main {margin-left: 0;}
+  }
+
+  .container {
+    margin-top: 50px;
+
+  }

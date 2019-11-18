@@ -1,0 +1,89 @@
+<app-sidebar></app-sidebar>
+<div class="main">
+<nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active" aria-current="page">Projects</li>
+        </ol>
+      </nav>
+
+  
+
+    <div class="card" >
+            <div class="card-header">
+                
+              <h4><strong>PROJECTS</strong>
+              
+              <button type="button" class="btn btn-dark float-right" (click)="showAddProject(content)" >Add Project</button>
+            </h4>
+      
+              <!-- The Modal -->
+
+              <ng-template #content let-modal>
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="modal-basic-title">Add project</h4>
+                      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                            <form (ngSubmit)="createProject(projectData)" #projectData="ngForm">
+                                    <div class="form-group row">
+                                      <div class="col-sm-3 col-form-label">Title</div>
+                                      <div class="col-sm-9">
+                                        <input type="text" required class="form-control" placeholder="Project Title" name="title" ngModel>
+                                      </div>
+                                    </div>
+                                    <div class="form-group row">
+                                      <label class="col-sm-3 col-form-label">Description</label>
+                                      <div class="col-sm-9">
+                                        <input type="text" required class="form-control" placeholder="Project Description" name="desc" ngModel>
+                                      </div>
+                                    </div>
+                                    <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Location</label>
+                                            <div class="col-sm-9">
+                                              <input type="text" required class="form-control" placeholder="Project Location" name="location" ngModel>
+                                            </div>
+                                          </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-9">
+                                            <button type="submit" class="btn btn-primary btn-block" >Submit</button>
+                                        </div>
+                                    </div>
+                                  </form>
+                    </div>
+                   
+                </ng-template>
+              
+                    </div>
+                  </div> 
+
+               <br>
+
+                    <div class="row" >
+                        <div class="col-sm-6" *ngFor="let data of projectsData" >
+                            <div class="card text-white bg-dark mb-3">
+                                <div class="card-header">{{data.location}}</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">{{data.title | uppercase}}</h5>
+                                  <p class="card-text">{{data.desc}}</p>
+                                  <button type="button" (click)="showDetail(data._id)" class="btn btn-light">View Details</button>
+                                </div>
+                              </div>
+                            </div>
+                          
+                        </div>
+
+                    <!-- <ul class="list-group list-group-flush">
+                           
+                            <button type="button" (click)="showDetail(data._id)"  class="list-group-item list-group-item-action" *ngFor="let data of projectsData" >
+                                <a > {{data.title}}</a> <button type="button" class="btn btn-danger float-right" >Delete</button>
+                            </button>
+
+    
+                    </ul> -->
+               
+                
+        </div>
