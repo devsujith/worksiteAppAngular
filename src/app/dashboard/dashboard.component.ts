@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CustomerService } from '../customer.service';
 
 
 @Component({
@@ -8,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private customer : CustomerService) { }
 
   ngOnInit() {
+    this.customer.getProjects()
+    this.customer.getEmployees()
   }
+
 
 }

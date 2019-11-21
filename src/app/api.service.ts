@@ -7,8 +7,8 @@ import { Router } from '@angular/router';
 })
 export class ApiService {
 
-  baseurl = "https://sujith-worksite-backend.herokuapp.com/"
-
+//  baseurl = "https://sujith-worksite-backend.herokuapp.com/"
+baseurl = "http://localhost:3000/"
   constructor(private http:HttpClient, private router: Router) { }
 
 
@@ -89,6 +89,14 @@ export class ApiService {
 
   apiGetEmployees(data){
     return this.http.post( this.baseurl + "employee/getEmployees",data)
+  }
+
+  apiUpdateEmployee(data){
+    return this.http.post( this.baseurl + "employee/updateEmployee",data)
+  }
+
+  apiDeleteEmployee(data){
+    return this.http.post( this.baseurl + "employee/deleteEmployee",data)
   }
 
 

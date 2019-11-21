@@ -13,13 +13,13 @@ import { Router } from '@angular/router';
 })
 export class ProjectsComponent implements OnInit {
 
-  projectsData : ProjectObject[];
+ // projectsData : ProjectObject[];
 
   constructor(private router : Router, private apiService : ApiService, private modalService : NgbModal, private customer : CustomerService) { }
 
   ngOnInit() {
     
-    this.getProjects()
+    this.customer.getProjects()
   }
 
 
@@ -52,7 +52,8 @@ export class ProjectsComponent implements OnInit {
       {
       
         this.modalService.dismissAll()
-        this.getProjects()
+        //this.getProjects()
+        this.customer.getProjects()
 
       } 
       else
@@ -69,42 +70,44 @@ export class ProjectsComponent implements OnInit {
 
   showDetail(id){
     console.log(id)
-    this.customer.selectedProject = this.projectsData.find(obj =>{
+    this.customer.selectedProject = this.customer.allProjects.find(obj =>{
 return obj._id == id;
     })
     this.router.navigate(['/projects/' + id]);
 
   }
 
-  getProjects(){
+  // getProjects(){
 
-    var params = {
+  //   var params = {
 
-      userID : this.customer.userID
+  //     userID : this.customer.userID
 
-    }
+  //   }
 
-    console.log(params)
+  //   console.log(params)
 
-    this.apiService.apiGetProjects(params).subscribe( (data: CommonResponse) =>{
-      console.log(data);
-      if (data.success)
-      {
+  //   this.apiService.apiGetProjects(params).subscribe( (data: CommonResponse) =>{
+  //     console.log(data);
+  //     if (data.success)
+  //     {
       
-        this.projectsData = data.data as [ProjectObject]
-        console.log(this.projectsData)
+        
+  //       this.projectsData = data.data as [ProjectObject]
+  //       console.log(this.projectsData)
+  //       this.customer.allProjects = this.projectsData
        
 
-      } 
-      else
-      {
+  //     } 
+  //     else
+  //     {
         
-       console.log(data.message) 
-      }
+  //      console.log(data.message) 
+  //     }
       
      
-    })
+  //   })
 
-  }
+  // }
 
 }

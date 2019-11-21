@@ -1,8 +1,9 @@
 import { Injectable, Inject } from '@angular/core';
 
 import { Router } from '@angular/router';
-import { ProjectObject, TaskObject } from './response.model';
+import { ProjectObject, TaskObject, CommonResponse, EmployeeObject } from './response.model';
 import { SESSION_STORAGE, StorageService } from 'angular-webstorage-service';
+import { ApiService } from './api.service';
  
 
 
@@ -15,10 +16,12 @@ export class CustomerService {
   private isloggedIn: boolean;
   public userID: string;
   public userName: string;
+  public allProjects: ProjectObject[] = []
+  public allEmployees: EmployeeObject[] = []
   public selectedProject: ProjectObject
   public selectedTask: TaskObject
 
-  constructor(private router:Router,@Inject(SESSION_STORAGE) private storage: StorageService) { 
+  constructor( private apiService : ApiService, private router:Router,@Inject(SESSION_STORAGE) private storage: StorageService) { 
     this.isloggedIn=this.isUserLoggedIn();
     this.userID = this.storage.get('userID');
     this.userName = this.storage.get('userName');
@@ -71,4 +74,75 @@ export class CustomerService {
    
   }
 
+  getProjects(){
+
+    
+
+    var params = {
+
+      userID : this.userID
+
+    }
+
+    console.log(params)
+
+    this.apiService.apiGetProjects(params).subscribe( (data: CommonResponse) =>{
+      console.log(data);
+      if (data.success)
+      {
+      
+        
+       // this.projectsData = data.data as [ProjectObject]
+       // console.log(this.projectsData)
+        this.allProjects = data.data as [ProjectObject]
+       
+
+      } 
+      else
+      {
+        
+       console.log(data.message) 
+      }
+      
+     
+    })
+
+  }
+
+
+  getEmployees(){
+
+    
+
+    var params = {
+
+      userID : this.userID
+
+    }
+
+    console.log(params)
+
+    this.apiService.apiGetEmployees(params).subscribe( (data: CommonResponse) =>{
+      console.log(data.data);
+      if (data.success)
+      {
+      
+        
+       // this.projectsData = data.data as [ProjectObject]
+       // console.log(this.projectsData)
+        this.allEmployees = data.data as EmployeeObject[]
+        console.log(this.allEmployees)
+       
+
+      } 
+      else
+      {
+        
+       console.log(data.message) 
+      }
+      
+     
+    })
+
+  }
 }

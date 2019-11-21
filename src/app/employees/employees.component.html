@@ -1,7 +1,146 @@
 
 <app-sidebar></app-sidebar>
 <div class="main">
-    <p>employees under development</p>
+         
+
+                        <div class="card" >
+                                <div class="card-header">
+                                    
+                                  <h4><strong>EMPLOYEES</strong>
+                                    <button type="button" class="btn btn-dark float-right" (click)="showAddEmployee(addEmployeeModal)" >Add Emplyee</button>
+                                </h4>
+                          
+                                <ng-template #addEmployeeModal let-modal>
+                                        <div class="modal-header">
+                                          <h4 class="modal-title" id="modal-basic-title">Add Employee</h4>
+                                          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                                <form (ngSubmit)="createEmployee(data)" #data="ngForm">
+                                                        <div class="form-group row">
+                                                          <div class="col-sm-3 col-form-label">Name</div>
+                                                          <div class="col-sm-9">
+                                                            <input type="text" required class="form-control" placeholder="Name" name="name" ngModel>
+                                                          </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                          <label class="col-sm-3 col-form-label">Employee Code</label>
+                                                          <div class="col-sm-9">
+                                                            <input type="text" required class="form-control" placeholder="Employee code" name="code" ngModel>
+                                                          </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                                <label class="col-sm-3 col-form-label">Profession Type</label>
+                                                                <div class="col-sm-9">
+                                                                  <input type="text" required class="form-control" placeholder="Profession" name="type" ngModel>
+                                                                </div>
+                                                              </div>
+                                                             
+                                                        <div class="form-group row">
+                                                            <div class="col-sm-3"></div>
+                                                            <div class="col-sm-9">
+                                                                <button type="submit" class="btn btn-primary btn-block" >Submit</button>
+                                                            </div>
+                                                        </div>
+                                                      </form>
+                                        </div>
+                                 
+                                    </ng-template> 
+                                        </div>
+
+                            <div *ngIf="customer.allEmployees.length > 0">
+                              
+                            
+                            
+
+                                    <table class="table">
+                                            <thead class="thead-dark">
+                                              <tr>
+                                                <th scope="col">Code</th>
+                                                <th scope="col">Employee Name</th>
+                                                <th scope="col">Proffession Type</th>
+                              
+                                                <th scope="col"></th>
+                                                
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr *ngFor="let data of customer.allEmployees">
+                                                <th scope="row">{{data.code}}</th>
+                                                <td>{{data.name}}</td>
+                                                <td>{{data.type}}</td>
+                                               
+                                                <td><button type="button" class="btn btn-light  mr-2 float-right" (click)="showEditEmployee(editEmployeeModal,data)" >Edit</button>
+                                                  <button type="button" class="btn btn-danger mr-2 float-right" (click)="showDeleteEmployee(deleteEmployeeModal,data)" >Delete</button></td>
+                                                
+                                                  <ng-template #editEmployeeModal let-modal>
+                                                    <div class="modal-header">
+                                                      <h4 class="modal-title" id="modal-basic-title">Edit Employee</h4>
+                                                      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                                        <span aria-hidden="true">&times;</span>
+                                                      </button>
+                                                    </div>
+                                                    <!-- Modal Edit body -->
+                                                    <div class="modal-body">
+                                                      <form (ngSubmit)="updateEmployee(data)" #data="ngForm">
+                                                              <div class="form-group row">
+                                                                <div class="col-sm-3 col-form-label">Employee Name</div>
+                                                                <div class="col-sm-9">
+                                                                  <input type="text" required class="form-control" placeholder="Employee Name" name="name" [(ngModel)]="selectedEmployee.name">
+                                                                </div>
+                                                              </div>
+                                                              <div class="form-group row">
+                                                                <label class="col-sm-3 col-form-label">Employee Code</label>
+                                                                <div class="col-sm-9">
+                                                                  <input type="text" required class="form-control" placeholder="Employee Code" name="code" [(ngModel)]="selectedEmployee.code">
+                                                                </div>
+                                                              </div>
+                                                              <div class="form-group row">
+                                                                      <label class="col-sm-3 col-form-label">Proffesstion Type</label>
+                                                                      <div class="col-sm-9">
+                                                                        <input type="text" required class="form-control" placeholder="Proffesstion Type" name="type" [(ngModel)]="selectedEmployee.type">
+                                                                      </div>
+                                                                    </div>
+                                                                   
+                                                              <div class="form-group row">
+                                                                  <div class="col-sm-3"></div>
+                                                                  <div class="col-sm-9">
+                                                                      <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                                                  </div>
+                                                              </div>
+                                                            </form>
+                                              </div>
+                                                   
+                                                </ng-template>
+                        
+                                                <ng-template #deleteEmployeeModal let-modal>
+                                                        <div class="modal-header">
+                                                          <h4 class="modal-title" id="modal-basic-title">Delete Employee</h4>
+                                                        </div>
+                                                        <!-- Modal Edit body -->
+                                                        <div class="modal-body">
+                                                             <p>Are you sure you want to delete the employee :  {{selectedEmployee.name | uppercase}}?</p>  
+                                                        </div>
+                        
+                                                        <div class="modal-footer">
+                                                                <button type="button" class="btn btn-danger" (click)="deleteEmployee()">Delete</button>
+                                                                <button type="button" class="btn btn-light" (click)="modal.dismiss()">Cancel</button>
+                                                              </div>
+                                                       
+                                                    </ng-template>
+  
+                                              </tr>
+                                         
+                                            </tbody>
+                                          </table>
+
+                                      </div>
+                                    </div> 
+            
+                    
     </div>
     
     

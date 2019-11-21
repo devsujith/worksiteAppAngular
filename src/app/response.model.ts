@@ -11,6 +11,13 @@ export class UserObject {
     email : string;
 }
 
+export class EmployeeObject {
+    name: string;
+    _id : string;
+    code : String;
+    type : string;
+}
+
 
 export class TaskObject {
     _id : string;
