@@ -19,6 +19,7 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
 import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { StorageServiceModule } from 'angular-webstorage-service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     NgbModule,
     StorageServiceModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule
 
   ],
   providers: [],

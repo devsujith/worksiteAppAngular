@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from '../customer.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -9,9 +10,12 @@ import { CustomerService } from '../customer.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private customer : CustomerService) { }
+  constructor(private spinner: NgxSpinnerService,private customer : CustomerService) { }
 
   ngOnInit() {
+
+
+   
     this.customer.getProjects()
     this.customer.getEmployees()
   }

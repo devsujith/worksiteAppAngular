@@ -5,6 +5,7 @@ import { ApiService } from '../api.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-task-detail',
@@ -17,7 +18,7 @@ export class TaskDetailComponent implements OnInit {
 project: ProjectObject
 selectedExpense : ExpenseObject
 
-  constructor(private router : Router, private customer : CustomerService,private modalService : NgbModal,private apiService : ApiService) { }
+  constructor(private spinner: NgxSpinnerService, private router : Router, private customer : CustomerService,private modalService : NgbModal,private apiService : ApiService) { }
 
   ngOnInit() {
     if (!this.customer.selectedTask){
@@ -39,6 +40,7 @@ selectedExpense : ExpenseObject
   }
 
 updateTask(data:NgForm){
+  this.spinner.show()
 
   console.log(data.value)
     
@@ -57,6 +59,7 @@ updateTask(data:NgForm){
 
   this.apiService.apiUpdateTask(params).subscribe( (data: CommonResponse) =>{
     console.log(data);
+    this.spinner.hide()
     if (data.success)
     {
     
@@ -81,6 +84,7 @@ updateTask(data:NgForm){
 
   deleteTask(){
     console.log("delete")
+    this.spinner.show()
     var params = {
       projectID : this.project._id,
       userID : this.customer.userID,
@@ -89,6 +93,7 @@ updateTask(data:NgForm){
     }
     this.apiService.apiDeleteTask(params).subscribe( (data: CommonResponse) =>{
       console.log(data);
+      this.spinner.hide()
       if (data.success)
       {
       
@@ -115,6 +120,7 @@ updateTask(data:NgForm){
   }
 
   getProject(){
+    this.spinner.show()
     console.log("get project")
     var params = {
       projectID : this.project._id,
@@ -123,6 +129,7 @@ updateTask(data:NgForm){
     }
     this.apiService.apiGetProject(params).subscribe( (data: CommonResponse) =>{
       console.log(data);
+      this.spinner.hide()
       if (data.success)
       {
       
@@ -150,8 +157,9 @@ updateTask(data:NgForm){
     })
   }
 
-  createExpense(data:NgForm){
 
+  createExpense(data:NgForm){
+this.spinner.show()
     console.log(data.value)
     
     var params = {
@@ -169,6 +177,7 @@ updateTask(data:NgForm){
 
     this.apiService.apiAddExpense(params).subscribe( (data: CommonResponse) =>{
       console.log(data);
+      this.spinner.hide()
       if (data.success)
       {
       
@@ -202,6 +211,7 @@ updateTask(data:NgForm){
 
   updateExpense(data){
 
+    this.spinner.show()
     console.log(data.value)
     
     var params = {
@@ -221,6 +231,7 @@ updateTask(data:NgForm){
 
     this.apiService.apiUpdateExpense(params).subscribe( (data: CommonResponse) =>{
       console.log(data);
+      this.spinner.hide()
       if (data.success)
       {
       
@@ -245,7 +256,7 @@ updateTask(data:NgForm){
 
   deleteExpense(){
 
-
+this.spinner.show()
     
     var params = {
      
@@ -260,6 +271,7 @@ updateTask(data:NgForm){
 
     this.apiService.apiDeleteExpense(params).subscribe( (data: CommonResponse) =>{
       console.log(data);
+      this.spinner.hide()
       if (data.success)
       {
       

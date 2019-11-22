@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CustomerService } from '../customer.service';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-projects',
@@ -15,7 +16,7 @@ export class ProjectsComponent implements OnInit {
 
  // projectsData : ProjectObject[];
 
-  constructor(private router : Router, private apiService : ApiService, private modalService : NgbModal, private customer : CustomerService) { }
+  constructor(private spinner: NgxSpinnerService,private router : Router, private apiService : ApiService, private modalService : NgbModal, private customer : CustomerService) { }
 
   ngOnInit() {
     
@@ -34,6 +35,7 @@ export class ProjectsComponent implements OnInit {
 
   createProject(data:NgForm){
 
+    this.spinner.show()
     console.log(data.value)
     
     var params = {
@@ -48,6 +50,7 @@ export class ProjectsComponent implements OnInit {
 
     this.apiService.apiCreateProject(params).subscribe( (data: CommonResponse) =>{
       console.log(data);
+      this.spinner.hide()
       if (data.success)
       {
       

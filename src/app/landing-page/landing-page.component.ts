@@ -6,6 +6,7 @@ import { CustomerService } from '../customer.service';
 import { CommonResponse, UserObject } from '../response.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-landing-page',
@@ -18,7 +19,7 @@ export class LandingPageComponent implements OnInit {
   submitted = false;
 
 
-  constructor(private formBuilder: FormBuilder, private customer : CustomerService ,private apiService :ApiService, private router : Router,private modalService : NgbModal) { }
+  constructor(private spinner: NgxSpinnerService,private formBuilder: FormBuilder, private customer : CustomerService ,private apiService :ApiService, private router : Router,private modalService : NgbModal) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -49,6 +50,7 @@ export class LandingPageComponent implements OnInit {
 
   signUp(){
 
+    this.spinner.show();
     this.submitted = true;
 
     console.log(this.registerForm.value)
@@ -64,6 +66,7 @@ export class LandingPageComponent implements OnInit {
 
     this.apiService.apiSignup(this.registerForm.value).subscribe( (data: CommonResponse) =>{
       console.log(data);
+      this.spinner.hide();
       if (data.success)
       {
         var user = data.data as UserObject
@@ -85,6 +88,7 @@ export class LandingPageComponent implements OnInit {
   }
 
   login(){
+    this.spinner.show();
     this.submitted = true;
     if (this.loginForm.invalid) {
       console.log("invlaid form")
@@ -95,6 +99,7 @@ export class LandingPageComponent implements OnInit {
     console.log(this.loginForm.value)
     this.apiService.apiLogin(this.loginForm.value).subscribe( (data: CommonResponse) =>{
       console.log(data);
+      this.spinner.hide();
       if (data.success)
       {
         var user = data.data as UserObject

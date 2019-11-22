@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgForm } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class ProjectDetailComponent implements OnInit {
 selectedPayment : PaymentObject 
  @Input() project: ProjectObject
    taskData : []
-  constructor(private router : Router, private customer : CustomerService,private modalService : NgbModal,private apiService : ApiService) { }
+  constructor(private spinner: NgxSpinnerService,private router : Router, private customer : CustomerService,private modalService : NgbModal,private apiService : ApiService) { }
 
   ngOnInit() {
 
@@ -68,7 +69,7 @@ selectedPayment : PaymentObject
   }
 
   editProject(data:NgForm){
-
+this.spinner.show()
     console.log(data.value)
     
     var params = {
@@ -84,6 +85,7 @@ selectedPayment : PaymentObject
 
     this.apiService.apiUpdateProject(params).subscribe( (data: CommonResponse) =>{
       console.log(data);
+      this.spinner.hide()
       if (data.success)
       {
       
@@ -105,6 +107,7 @@ selectedPayment : PaymentObject
 
   getProject(){
     console.log("get project")
+    this.spinner.show()
     var params = {
       projectID : this.project._id,
       userID : this.customer.userID
@@ -112,6 +115,7 @@ selectedPayment : PaymentObject
     }
     this.apiService.apiGetProject(params).subscribe( (data: CommonResponse) =>{
       console.log(data);
+      this.spinner.hide()
       if (data.success)
       {
       
@@ -166,6 +170,7 @@ selectedPayment : PaymentObject
 
   createTask(data:NgForm){
 
+    this.spinner.show()
     console.log(data.value)
     
     var params = {
@@ -182,6 +187,7 @@ selectedPayment : PaymentObject
 
     this.apiService.apiAddTask(params).subscribe( (data: CommonResponse) =>{
       console.log(data);
+      this.spinner.hide()
       if (data.success)
       {
       
@@ -216,6 +222,7 @@ return obj._id == id;
 
   createPayment(data:NgForm){
 
+    this.spinner.show()
     console.log(data.value)
     
     var params = {
@@ -232,6 +239,7 @@ return obj._id == id;
 
     this.apiService.apiAddPayment(params).subscribe( (data: CommonResponse) =>{
       console.log(data);
+      this.spinner.hide()
       if (data.success)
       {
       
@@ -263,6 +271,7 @@ return obj._id == id;
   }
 
   updatePayment(data){
+    this.spinner.show()
 
     console.log(data.value)
     
@@ -282,6 +291,7 @@ return obj._id == id;
 
     this.apiService.apiUpdatePayment(params).subscribe( (data: CommonResponse) =>{
       console.log(data);
+      this.spinner.hide()
       if (data.success)
       {
       
@@ -306,7 +316,7 @@ return obj._id == id;
 
   deletePayment(){
 
-
+this.spinner.show()
     
     var params = {
      
@@ -320,6 +330,7 @@ return obj._id == id;
 
     this.apiService.apiDeletePayment(params).subscribe( (data: CommonResponse) =>{
       console.log(data);
+      this.spinner.hide()
       if (data.success)
       {
       

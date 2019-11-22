@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { CommonResponse, EmployeeObject } from '../response.model';
 import { CustomerService } from '../customer.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-employees',
@@ -12,7 +13,7 @@ import { CustomerService } from '../customer.service';
 })
 export class EmployeesComponent implements OnInit {
 
-  constructor(private modalService : NgbModal, private apiService : ApiService, private customer : CustomerService) { }
+  constructor(private spinner: NgxSpinnerService, private modalService : NgbModal, private apiService : ApiService, private customer : CustomerService) { }
 
   selectedEmployee : EmployeeObject
   ngOnInit() {
@@ -26,6 +27,7 @@ export class EmployeesComponent implements OnInit {
 
   createEmployee(data:NgForm){
 
+    this.spinner.show()
     console.log(data.value)
     
     var params = {
@@ -40,6 +42,7 @@ export class EmployeesComponent implements OnInit {
 
     this.apiService.apiAddEmployee(params).subscribe( (data: CommonResponse) =>{
       console.log(data);
+      this.spinner.hide()
       if (data.success)
       {
       
@@ -71,6 +74,7 @@ export class EmployeesComponent implements OnInit {
 
 
   updateEmployee(data){
+    this.spinner.show()
 
     console.log(data.value)
     
@@ -86,6 +90,7 @@ export class EmployeesComponent implements OnInit {
 
     this.apiService.apiUpdateEmployee(params).subscribe( (data: CommonResponse) =>{
       console.log(data);
+      this.spinner.hide()
       if (data.success)
       {
       
@@ -109,7 +114,7 @@ export class EmployeesComponent implements OnInit {
 
   deleteEmployee(){
 
-
+this.spinner.show()
     
     var params = {
      
@@ -123,6 +128,7 @@ export class EmployeesComponent implements OnInit {
 
     this.apiService.apiDeleteEmployee(params).subscribe( (data: CommonResponse) =>{
       console.log(data);
+      this.spinner.hide()
       if (data.success)
       {
       
